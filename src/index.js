@@ -1,4 +1,12 @@
-
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  SlashCommandBuilder,
+  REST,
+  Routes
+} from 'discord.js'
 import { Client, GatewayIntentBits } from 'discord.js'
 import config from './config.js'
 
