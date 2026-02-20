@@ -62,8 +62,12 @@ client.on('interactionCreate', async interaction => {
 
   if (interaction.commandName === 'sendpanel') {
 
-    if (!interaction.member.permissions.has("Administrator"))
-      return interaction.reply({ content: "لا تملك صلاحية", ephemeral: true })
+    // 🔒 شرط رتبة السبورت
+    if (!interaction.member.roles.cache.has(process.env.SUPPORT_ROLE_ID))
+      return interaction.reply({
+        content: "هذا الأمر مخصص لرتبة السبورت فقط",
+        ephemeral: true
+      })
 
     const embed = new EmbedBuilder()
       .setTitle("🎧 Support Control Panel")
@@ -79,12 +83,7 @@ client.on('interactionCreate', async interaction => {
       new ButtonBuilder()
         .setCustomId('logout')
         .setLabel('Logout')
-        .setStyle(ButtonStyle.Danger),
-
-      new ButtonBuilder()
-        .setCustomId('end_session')
-        .setLabel('إنهاء الجلسة')
-        .setStyle(ButtonStyle.Secondary)
+        .setStyle(ButtonStyle.Danger)
     )
 
     await interaction.channel.send({ embeds: [embed], components: [row] })
