@@ -21,6 +21,18 @@ const client = new Client({
 client.once('ready', () => {
   console.log("Support Voice Pro Ready")
 })
+const commands = [
+  new SlashCommandBuilder()
+    .setName('sendpanel')
+    .setDescription('إرسال بنل السبورت')
+]
+
+const rest = new REST({ version: '10' }).setToken(config.token)
+
+await rest.put(
+  Routes.applicationGuildCommands(client.user.id, config.guildId),
+  { body: commands }
+)
 
 client.login(config.token)
 
